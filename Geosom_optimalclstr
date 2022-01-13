@@ -1,0 +1,22 @@
+%rng(1); % For reproducibility
+%  X=gss.Som.codebook;
+oclusters=[];     % optimal clusters
+X=gss.NumData(:,4:end);
+for i =1:10
+E = evalclusters(X,'kmeans','DaviesBouldin','klist',[1:35]);
+oclusters=[oclusters;E.OptimalK];
+end
+[xx,f]=mode(oclusters)
+hist(oclusters)
+xlabel('Optimal clusters')
+ylabel('Frequency')
+figure
+plot(E)
+
+[idx,xdata]=kmeans(X,xx);
+for i=2:xx
+scatter(X(idx==i,2),X(idx==i,1))
+hold on
+end
+legend('Cluster 2','Cluster 3','Cluster 4','Cluster 5',...
+       'Cluster 6','Cluster 7','Cluster 8')
