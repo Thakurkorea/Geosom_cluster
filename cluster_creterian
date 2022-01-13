@@ -1,0 +1,12 @@
+https://www.mathworks.com/help/stats/evalclusters.html
+
+% X=gss.Som.codebook;
+oclusters=[];     % optimal clusters
+for i =1:200
+X=gss.NumData(:,4:end);
+E = evalclusters(X,'kmeans','DaviesBouldin','klist',[1:35]);
+oclusters=[sclusters;E.OptimalK];
+end
+min(oclusters)
+plot(E)
+% kmeans(X,3);
